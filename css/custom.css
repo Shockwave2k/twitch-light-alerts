@@ -1,0 +1,11 @@
+body {line-height: 1; }
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light:hover { color: rgba(92, 135, 186, 1); cursor: pointer; }
+.material-icons.exit:hover { color: rgba(255, 0, 0, 1); cursor: pointer; }
+.material-icons.md-sm { font-size: 18px; margin-top: 4px; }
+.dragable { -webkit-app-region: drag; }
+.custom-control-indicator { top: 0.08rem; }
+.navbar { padding: 5px }
+.bottom { position: absolute; bottom: 0; width: 320px }
+h6 { font-size: 0.7em;  }
+p { font-size: 0.9em }
