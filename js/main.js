@@ -41,13 +41,13 @@ function closeapp(){
 
 const imports = ['donations', 'follower', 'subscriber', 'settings', 'info'];
 imports.forEach(function(element) {
-    let content = document.getElementById(element).import.activeElement;
+    let content = document.getElementById(element).import.activeElement.firstChild;
     let tab = document.getElementById('nav-' + element);
     tab.appendChild(content);
 });
 
 const defaultForms = ['donations', 'follower', 'subscriber'];
-const formTemplate = document.getElementById('form').import.activeElement;
+const formTemplate = document.getElementById('form').import.activeElement.firstChild;
 defaultForms.forEach(function(element) {
     let clone = formTemplate.cloneNode(true);
     let form = document.forms[element];
