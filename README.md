@@ -1,2 +1,2 @@
 # twitch-light-alerts
-Twitch Ligh Alerts
+Twitch Light Alerts
