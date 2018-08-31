@@ -20,14 +20,14 @@ function openExternal(url){
 function providerToken(){
     const settings = store.get('settings');
     if(settings.provider === 'streamlabs') {
-        shell.openExternal('https://www.streamlabs.com/api/v1.0/authorize?client_id=9JXyQsH9fUQ34KPresGZIsMEOnkVRV0Rva7w2nCy&redirect_uri=http://twitch.bad-media.de/auth.php&response_type=code&scope=donations.read+socket.token');
+        window.open('https://www.streamlabs.com/api/v1.0/authorize?client_id=9JXyQsH9fUQ34KPresGZIsMEOnkVRV0Rva7w2nCy&redirect_uri=http://twitch.bad-media.de/auth.php&response_type=code&scope=donations.read+socket.token', 'getToken');
     }
 }
 
 function refreshToken(){
     const settings = store.get('settings');
     if(settings.provider === 'streamlabs') {
-        shell.openExternal('http://twitch.bad-media.de/auth?refreshToken=' + store.get('settings')['refreshToken']);
+        window.open('http://twitch.bad-media.de/auth?refreshToken=' + store.get('settings')['refreshToken'], 'refreshToken');
     }
 }
 
