@@ -9,3 +9,11 @@ body {line-height: 1; }
 .bottom { position: absolute; bottom: 0; width: 320px }
 h6 { font-size: 0.7em;  }
 p { font-size: 0.9em }
+
+.dropdown-menu {
+    display : none !important;
+}
+
+.dropdown-menu.show {
+    display : block !important;
+}
