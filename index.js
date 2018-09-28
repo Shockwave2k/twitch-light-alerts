@@ -1,8 +1,7 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-
-const {app, BrowserWindow} = electron;
+const {app, BrowserWindow, ipcMain} = electron;
 
 let mainWindow;
 
@@ -25,6 +24,10 @@ app.on('ready', function() {
     mainWindow.on('closed', function (){
         app.quit();
     });
-});
 
+    ipcMain.on('AccessTokens', (event, accessToken, refreshToken) => {
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'accessToken\').value =' + accessToken, true);
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'refreshToken\').value =' + refreshToken, true);
+    });
+});
 

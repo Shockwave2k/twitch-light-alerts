@@ -1,8 +1,9 @@
 const electron = require('electron');
 const remote = require('electron').remote;
-const {shell} = electron;
+const {shell, ipcRenderer} = electron;
 const Store = require('electron-store');
 const store = new Store();
+let win;
 
 window.$ = window.jQuery = require('jquery');
 window.Popper = require('popper.js');
@@ -13,18 +14,50 @@ function saveForm(name) {
     store.set(name, data)
 }
 
-function openExternal(url){
+function openExternal(url) {
     shell.openExternal(url)
 }
 
-function providerToken(){
-    const settings = store.get('settings');
-    if(settings.provider === 'streamlabs') {
-        window.open('https://www.streamlabs.com/api/v1.0/authorize?client_id=9JXyQsH9fUQ34KPresGZIsMEOnkVRV0Rva7w2nCy&redirect_uri=http://twitch.bad-media.de/auth.php&response_type=code&scope=donations.read+socket.token', 'getToken');
-    }
+function newBrowserWindow() {
+    const BrowserWindow = remote.BrowserWindow;
+    return new BrowserWindow({
+        width: 800,
+        height: 600,
+        frame: true,
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: false
+        },
+    });
 }
 
-function refreshToken(){
+function providerToken() {
+    const settings = store.get('settings');
+    win = newBrowserWindow();
+
+    if(settings.provider === 'streamlabs') {
+        win.loadURL('https://www.streamlabs.com/api/v1.0/authorize?client_id=9JXyQsH9fUQ34KPresGZIsMEOnkVRV0Rva7w2nCy&redirect_uri=http://twitch.bad-media.de/auth.php&response_type=code&scope=donations.read+socket.token');
+    }
+
+    /** @returns {Promise<string>} */
+    function checkForData() {
+        return win.webContents.executeJavaScript('document.getElementById(\'accessToken\').value', true)
+    }
+
+    let checkExist = setInterval(function() {
+        checkForData().then((accessToken) => {
+            if (accessToken) {
+                win.webContents.executeJavaScript('document.getElementById(\'refreshToken\').value', true)
+                    .then((refreshToken) => {
+                        ipcRenderer.send('AccessTokens', JSON.stringify(accessToken), JSON.stringify(refreshToken));
+                    });
+                clearInterval(checkExist);
+            }
+        });
+    }, 2000);
+}
+
+function refreshToken() {
     const settings = store.get('settings');
     if(settings.provider === 'streamlabs') {
         window.open('http://twitch.bad-media.de/auth?refreshToken=' + store.get('settings')['refreshToken'], 'refreshToken');
@@ -35,7 +68,7 @@ function minimize(){
     remote.getCurrentWindow().minimize();
 }
 
-function closeapp(){
+function closeapp() {
     remote.app.quit();
 }
 
