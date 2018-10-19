@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitch Light Alerts</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js' type='text/javascript'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="src/css/custom.css">
+    <!--PARTIAL IMPORT START-->
+    <link rel="import" href="src/partials/donations.html" id="donations">
+    <link rel="import" href="src/partials/follower.html" id="follower">
+    <link rel="import" href="src/partials/subscriber.html" id="subscriber">
+    <link rel="import" href="src/partials/settings.html" id="settings">
+    <link rel="import" href="src/partials/info.html" id="info">
+    <link rel="import" href="src/partials/form.html" id="form">
+    <!--PARTIAL IMPORT END-->
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm sticky-top navbar-dark bg-dark py-0 mb-2">
+        <!--APP NAV START-->
+        <ul class="nav nav-tabs mr-2" role="tablist">
+            <li class="nav-item dropdown">
+                <i class="material-icons md-light md-sm" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">dehaze</i>
+                <div class="nav nav-tabs dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Info</a>
+                    <a class="dropdown-item" href="#" aria-selected="false" onclick="openExternal('http://codeitdown.com/colpick')">Color Picker</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="nav-follower-tab" data-toggle="tab" href="#nav-follower" role="tab" aria-controls="nav-follower" aria-selected="false">Follower</a>
+                    <a class="dropdown-item" id="nav-donations-tab" data-toggle="tab" href="#nav-donations" role="tab" aria-controls="nav-donations" aria-selected="false">Donations</a>
+                    <a class="dropdown-item" id="nav-subscriber-tab" data-toggle="tab" href="#nav-subscriber" role="tab" aria-controls="nav-subscriber" aria-selected="false">Subscriber</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="false">Settings</a>
+                </div>
+            </li>
+        </ul>
+        <!--APP NAV END-->
+        <div class="ml w-75 dragable">
+            <p class="mb-0 text-white">Twitch Light Alerts</p>
+        </div>
+        <div class="ml-auto">
+            <span id="minimize" onclick="minimize()"><i class="material-icons md-light md-sm">arrow_drop_down_circle</i></span>
+            <span id="close" onclick="closeapp()"><i class="material-icons md-light md-sm exit">cancel</i></span>
+        </div>
+    </nav>
+
+    <!--PARTIAL START-->
+    <div class="container-fluid">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab"></div>
+            <div class="tab-pane fade" id="nav-follower" role="tabpanel" aria-labelledby="nav-follower-tab"></div>
+            <div class="tab-pane fade" id="nav-donations" role="tabpanel" aria-labelledby="nav-donations-tab"></div>
+            <div class="tab-pane fade" id="nav-subscriber" role="tabpanel" aria-labelledby="nav-subscriber-tab"></div>
+            <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab"></div>
+        </div>
+    </div>
+    <!--PARTIAL END-->
+
+    <script src="src/js/main.js"></script>
+    <script src="src/js/socketConnector.js"></script>
+    <script src="src/js/get-form-data.min.js"></script>
+    <script src="src/js/provider/lifx.js"></script>
+</body>
+</html>
