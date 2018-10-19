@@ -7,7 +7,8 @@
     "start": "electron .",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
     "package-win": "electron-packager . twitch-light-alerts --overwrite --asar=true --platform=win32 --arch=ia32  --prune=true --out=release-builds --version-string.ProductName=\"Twitch Light Alerts\"",
-    "package-linux": "electron-packager . twitch-light-alerts --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds"
+    "package-linux": "electron-packager . twitch-light-alerts --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds",
+    "release": "yarn compile && electron-builder"
   },
   "keywords": [
     "LIFX",
