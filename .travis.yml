@@ -1,18 +1,25 @@
 language: node_js
+
 node_js:
-- '8'
+    - '8'
+
 matrix:
     include:
     - os: windows
       dist: xenial
       sudo: required
     - os: osx
+
 cache:
     yarn: true
+
 notifications:
     email: false
-script:
-- yarn dist
+
+install:
+    - npm install electron-builder@next
+    - npm install
+
 deploy:
     provider: releases
     api_key: $ENCRYPTED_GITHUB_TOKEN
