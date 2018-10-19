@@ -25,9 +25,9 @@ app.on('ready', function() {
         app.quit();
     });
 
-    ipcMain.on('AccessTokens', (event, accessToken, refreshToken) => {
+    ipcMain.on('AccessTokens', (event, accessToken, refreshToken, socketToken) => {
         mainWindow.webContents.executeJavaScript('document.getElementById(\'accessToken\').value =' + accessToken, true);
         mainWindow.webContents.executeJavaScript('document.getElementById(\'refreshToken\').value =' + refreshToken, true);
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'socketToken\').value =' + socketToken, true);
     });
 });
-

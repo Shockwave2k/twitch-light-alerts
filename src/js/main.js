@@ -40,18 +40,29 @@ function providerToken() {
     }
 
     /** @returns {Promise<string>} */
-    function checkForData() {
+    function checkAccessToken() {
         return win.webContents.executeJavaScript('document.getElementById(\'accessToken\').value', true)
+    }
+    /** @returns {Promise<string>} */
+    function checkRefreshToken() {
+        return win.webContents.executeJavaScript('document.getElementById(\'refreshToken\').value', true)
+    }
+    /** @returns {Promise<string>} */
+    function checkSocketToken() {
+        return win.webContents.executeJavaScript('document.getElementById(\'socketToken\').value', true)
     }
 
     let checkExist = setInterval(function() {
-        checkForData().then((accessToken) => {
+        checkAccessToken().then((accessToken) => {
             if (accessToken) {
-                win.webContents.executeJavaScript('document.getElementById(\'refreshToken\').value', true)
-                    .then((refreshToken) => {
-                        ipcRenderer.send('AccessTokens', JSON.stringify(accessToken), JSON.stringify(refreshToken));
-                    });
-                clearInterval(checkExist);
+                checkRefreshToken().then((refreshToken) => {
+                    if (refreshToken) {
+                        checkSocketToken().then((socketToken) => {
+                            ipcRenderer.send('AccessTokens', JSON.stringify(accessToken), JSON.stringify(refreshToken), JSON.stringify(socketToken));
+                        });
+                        clearInterval(checkExist);
+                    }
+                });
             }
         });
     }, 2000);
