@@ -2,13 +2,10 @@
   "name": "twitch_light_alerts",
   "version": "0.1.0",
   "description": "Twitch Light Alerts",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
-    "package-win": "electron-packager . twitch-light-alerts --overwrite --asar=true --platform=win32 --arch=ia32  --prune=true --out=release-builds --version-string.ProductName=\"Twitch Light Alerts\"",
-    "package-linux": "electron-packager . twitch-light-alerts --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds",
-    "release": "yarn compile && electron-builder"
+    "release": "electron-builder build --publish never"
   },
   "keywords": [
     "LIFX",
@@ -35,6 +32,6 @@
   },
   "devDependencies": {
     "electron": "^1.8.8",
-    "electron-packager": "^12.1.2"
+    "electron-builder": "^20.39.0"
   }
 }
